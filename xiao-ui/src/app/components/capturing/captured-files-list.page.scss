@@ -1,0 +1,56 @@
+table {
+  width: 100%;
+}
+
+tr.detail-row {
+  height: 0;
+  width: 100%;
+}
+/*
+tr.element-row:not(.expanded-row):hover {
+  background: whitesmoke;
+}
+*/
+tr.element-row:not(.expanded-row):hover {
+  background: rgb(91, 91, 91);
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 10px 8px 0px;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.example-element-description > div {
+  padding: 16px;
+  display: inline-flex;
+  flex-wrap: nowrap;
+}
+.example-element-description > audio {
+  padding: 16px;
+  float: right;
+  display: block;
+}

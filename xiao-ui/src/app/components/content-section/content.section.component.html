@@ -1,0 +1,26 @@
+<div
+  class="content-section full-width static-bag"
+  [id]="contentId"
+  [style.background-image]="[bgImage]"
+>
+  <h3 class="target-title">
+    <h4>[title]</h4>
+    <ng-content select="[title]"></ng-content>
+  </h3>
+  <div class="target-content-section">
+    <div class="target-body">
+      <h4>[body]</h4>
+      <ng-content select="[body]"></ng-content>
+    </div>
+    <div class="target-container-ngTemplateOutlet">
+      <h4>[ngTemplateOutlet]</h4>
+      <ng-container [ngTemplateOutlet]="content.tRef"></ng-container>
+      <ng-content select="[bgImage]"></ng-content>
+    </div>
+  </div>
+</div>
+
+<div class="target-default">
+  <h4>[DEFAULT]</h4>
+  <ng-content></ng-content>
+</div>

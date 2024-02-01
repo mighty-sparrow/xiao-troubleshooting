@@ -1,0 +1,16 @@
+.container .par {
+    margin-bottom: 10px;
+}
+.button-container{
+  padding: 16px;
+  display: inline-flex;
+  flex-wrap: nowrap;
+}
+.recorded-audio{
+    display: inline-flex;
+    flex-direction: column;
+}
+.recorded-audio > audio,
+.recorded-audio > #txtOutput {
+    margin-top: 10px;
+}

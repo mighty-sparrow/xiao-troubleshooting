@@ -1,0 +1,26 @@
+// @import "@angular/material/core/typography/typography.import";
+@use "@angular/material" as mat;
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat.define-typography-config(
+  $font-family: "Roboto, monospace",
+  $headline-1: mat.define-typography-level(12px, 48px, 700),
+  $body-1: mat.define-typography-level(16px, 24px, 500),
+);
+// Override typography for a specific Angular Material components.
+@include mat.card-typography($custom-typography);
+.mat-card-title,
+.mat-mdc-card-title {
+  text-transform: capitalize !important;
+}
+
+.clean.mat-mdc-card-outlined,
+.clean.mat-mdc-card {
+  background-color: white;
+}
+
+dark .clean.mat-mdc-card-outlined,
+dark .clean.mat-mdc-card {
+  background-color: white;
+}

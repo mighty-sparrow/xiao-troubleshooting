@@ -1,0 +1,27 @@
+@use "@angular/material" as mat;
+
+$heading-font-family: "Montserrat,Helvetica Neue,Arial,sans-serif;";
+// $heading-font-family: "'Roboto Thin','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif";
+$body-font-family: "'Open Sans', sans-serif";
+$typography: mat.define-typography-config(
+  $headline-6:
+    mat.define-typography-level(20px, $font-family: $heading-font-family),
+  $headline-5:
+    mat.define-typography-level(55px, $font-family: $heading-font-family),
+  $headline-4:
+    mat.define-typography-level(50px, $font-family: $heading-font-family),
+  $headline-3:
+    mat.define-typography-level(45px, $font-family: $heading-font-family),
+  $headline-2:
+    mat.define-typography-level(35px, $font-family: $heading-font-family),
+  $headline-1:
+    mat.define-typography-level(25px, $font-family: $heading-font-family),
+  $subtitle-1:
+    mat.define-typography-level(20px, $font-family: $body-font-family),
+  $subtitle-2:
+    mat.define-typography-level(15px, $font-family: $body-font-family),
+  $body-1: mat.define-typography-level(14px, $font-family: $body-font-family),
+  $body-2: mat.define-typography-level(100%, $font-family: $body-font-family),
+  $caption: mat.define-typography-level(10px, $font-family: $body-font-family),
+  $button: mat.define-typography-level(14px, $font-family: $body-font-family),
+);

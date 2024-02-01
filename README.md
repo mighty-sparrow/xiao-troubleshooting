@@ -69,6 +69,6 @@ At a high-level, we're going to:
  3. Change IP and port for `localhost` proxy
     * Only necessary if you're running the Angular UI
  4. Install the firmware on your XIAO ESP32 S3
- 5. Change configuration values in `xiaos3-playground` project
+ 5. Change configuration values in [`xiaos-firmware`](./xiao-firmware/README.md) project
  6. Build and deploy firmware
  6. Open a Serial Monitor and watch the magic unfold.

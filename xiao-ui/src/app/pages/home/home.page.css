@@ -1,0 +1,57 @@
+.grid-container {
+  margin: 0px;
+  margin-top: 80px;
+
+  .card {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+  }
+}
+dl {
+  display: table;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+dl>dt {
+  display: table-caption;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 0;
+  border: 0;
+  font-size: 1.17rem;
+}
+
+dl>div {
+  display: table-row;
+}
+
+dl>div:first-of-type>dt {
+  width: 50%;
+}
+
+dl>div:first-of-type>dd {
+  width: 50%;
+}
+
+div>dt,
+div>dd {
+  display: table-cell;
+}
+
+div>dt {
+  padding-right: 10px;
+  border-right: 2px solid #fff;
+  text-align: right;
+  font-weight: bolder;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+div>dd {
+  padding-left: 10px;
+  border-left: 2px solid #fff;
+  font-family: 'Courier New', Courier, monospace;
+}

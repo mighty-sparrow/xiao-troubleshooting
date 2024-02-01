@@ -1,0 +1,34 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  overflow-x: hidden;
+  margin: 0;
+
+  // Helps fonts on OSX looks more consistent with other systems
+  // Isn't currently in button styles due to performance concerns
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+.mat-h1,
+.mat-h2,
+.mat-h3,
+.mat-h4,
+.mat-h5,
+.mat-h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-transform: uppercase;
+}
+main {
+  margin-top: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+}

@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "xiao-firmware"
+		},
+		{
+			"path": "xiao-app"
+		},
+		{
+			"path": "xiao-ui"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}

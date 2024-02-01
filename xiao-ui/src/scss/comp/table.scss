@@ -1,0 +1,8 @@
+tr.element-row:not(.expanded-row):hover {
+  background: whitesmoke;
+}
+.dark-theme
+  .mat-mdc-table
+  tr.mat-mdc-row:not(.expanded-row):not(.detail-row):hover {
+  background: rgb(33, 35, 54);
+}

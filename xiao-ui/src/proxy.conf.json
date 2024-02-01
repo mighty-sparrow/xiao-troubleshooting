@@ -1,0 +1,11 @@
+{
+  "/api/*": {
+    "target": "http://[YOUR IP ADDRESS HERE]:3000",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "changeOrigin": false,
+    "logLevel": "debug"
+  }
+}

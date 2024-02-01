@@ -1,0 +1,182 @@
+@use "palette.common" as pc;
+// Theme saved at:
+// https://coolors.co/575c33-437c90-eeebd3-f7c548-cea0ae
+
+$base-0: #575c33;
+$base-1: #437c90;
+$base-2: #eeebd3;
+$base-3: #f7c548;
+$base-4: #cea0ae;
+
+$light-0: #6f7541ff;
+$light-1: #4f91a8ff;
+$light-2: #fffce3ff;
+$light-3: #ffcc4aff;
+$light-4: #e8b5c4ff;
+
+// Original Value is represented by '100'
+/* For use in src/lib/core/theming/_palette.scss */
+$md-mcgpalette0: (
+  50: #ebebe7,
+  100: #cdcec2,
+  200: #abae99,
+  300: #898d70,
+  400: #707452,
+  500: #575c33,
+  600: #4f542e,
+  700: #464a27,
+  800: #3c4120,
+  900: #2c3014,
+  A100: #ffe22f,
+  A200: #f0cf00,
+  A400: #d7b900,
+  A700: #c8ac00,
+  contrast: (
+    50: pc.$dark-primary-text,
+    100: pc.$dark-primary-text,
+    200: pc.$dark-primary-text,
+    300: pc.$dark-primary-text,
+    400: pc.$dark-primary-text,
+    500: pc.$dark-primary-text,
+    600: pc.$dark-primary-text,
+    700: pc.$dark-primary-text,
+    800: pc.$dark-primary-text,
+    900: pc.$light-primary-text,
+    A100: pc.$dark-primary-text,
+    A200: pc.$dark-primary-text,
+    A400: pc.$dark-primary-text,
+    A700: pc.$dark-primary-text,
+  ),
+);
+
+$md-mcgpalette1: (
+  50: #e8eff2,
+  100: #c7d8de,
+  200: #a1bec8,
+  300: #7ba3b1,
+  400: #5f90a1,
+  500: #437c90,
+  600: #3d7488,
+  700: #34697d,
+  800: #2c5f73,
+  900: #1e4c61,
+  A100: #60ecff,
+  A200: #23e4ff,
+  A400: #09e1ff,
+  A700: #00dbf9,
+  contrast: (
+    50: pc.$dark-primary-text,
+    100: pc.$dark-primary-text,
+    200: pc.$dark-primary-text,
+    300: pc.$dark-primary-text,
+    400: pc.$dark-primary-text,
+    500: pc.$dark-primary-text,
+    600: pc.$dark-primary-text,
+    700: pc.$dark-primary-text,
+    800: pc.$dark-primary-text,
+    900: pc.$light-primary-text,
+    A100: pc.$dark-primary-text,
+    A200: pc.$dark-primary-text,
+    A400: pc.$dark-primary-text,
+    A700: pc.$dark-primary-text,
+  ),
+);
+
+$md-mcgpalette2: (
+  50: #f9f4f5,
+  100: #f0e3e7,
+  200: #e7d0d7,
+  300: #ddbdc6,
+  400: #d5aeba,
+  500: #cea0ae,
+  600: #c998a7,
+  700: #c28e9d,
+  800: #bc8494,
+  900: #b07384,
+  A100: #ffffff,
+  A200: #ffcce0,
+  A400: #ffb3d0,
+  A700: #ffa3c7,
+  contrast: (
+    50: pc.$dark-primary-text,
+    100: pc.$dark-primary-text,
+    200: pc.$dark-primary-text,
+    300: pc.$dark-primary-text,
+    400: pc.$dark-primary-text,
+    500: pc.$dark-primary-text,
+    600: pc.$dark-primary-text,
+    700: pc.$dark-primary-text,
+    800: pc.$dark-primary-text,
+    900: pc.$light-primary-text,
+    A100: pc.$dark-primary-text,
+    A200: pc.$dark-primary-text,
+    A400: pc.$dark-primary-text,
+    A700: pc.$dark-primary-text,
+  ),
+);
+
+$md-mcgpalette3: (
+  50: #fef8e9,
+  100: #fdeec8,
+  200: #fbe2a4,
+  300: #f9d67f,
+  400: #f8ce63,
+  500: #f7c548,
+  600: #f6bf41,
+  700: #f5b838,
+  800: #f3b030,
+  900: #f1a321,
+  A100: #ffffff,
+  A200: #ffebd9,
+  A400: #ffdec0,
+  A700: #ffd6b0,
+  contrast: (
+    50: pc.$dark-primary-text,
+    100: pc.$dark-primary-text,
+    200: pc.$dark-primary-text,
+    300: pc.$dark-primary-text,
+    400: pc.$dark-primary-text,
+    500: pc.$dark-primary-text,
+    600: pc.$dark-primary-text,
+    700: pc.$dark-primary-text,
+    800: pc.$dark-primary-text,
+    900: pc.$light-primary-text,
+    A100: pc.$dark-primary-text,
+    A200: pc.$dark-primary-text,
+    A400: pc.$dark-primary-text,
+    A700: pc.$dark-primary-text,
+  ),
+);
+
+$md-mcgpalette4: (
+  50: #fdfdfa,
+  100: #faf9f2,
+  200: #f7f5e9,
+  300: #f3f1e0,
+  400: #f1eeda,
+  500: #eeebd3,
+  600: #ece9ce,
+  700: #e9e5c8,
+  800: #e7e2c2,
+  900: #e2ddb7,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #ffffff,
+  A700: #ffffff,
+  contrast: (
+    50: pc.$dark-primary-text,
+    100: pc.$dark-primary-text,
+    200: pc.$dark-primary-text,
+    300: pc.$dark-primary-text,
+    400: pc.$dark-primary-text,
+    500: pc.$dark-primary-text,
+    600: pc.$dark-primary-text,
+    700: pc.$dark-primary-text,
+    800: pc.$dark-primary-text,
+    900: pc.$light-primary-text,
+    A100: pc.$dark-primary-text,
+    A200: pc.$dark-primary-text,
+    A400: pc.$dark-primary-text,
+    A700: pc.$dark-primary-text,
+  ),
+);

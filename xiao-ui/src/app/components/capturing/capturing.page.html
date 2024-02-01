@@ -1,0 +1,55 @@
+<h1>{{title}}</h1>
+<div class="container">
+  <div class="par">Use this page to capture a sample piece of audio from your browser.</div>
+<div class="button-container">
+  <mat-list>
+  <mat-list-item>
+    <button
+      mat-button-toggle
+      mat-flat-button
+      #toggleRecordButton
+      color="basic"
+      (click)="onToggleRecording()"
+    >
+      {{buttonLabelText}}
+    </button>
+  </mat-list-item>
+  <mat-list-item>
+    <button
+      mat-button-toggle
+      mat-flat-button
+      #toggleRecordButton1
+      color="primary"
+      (click)="onToggleRecording()"
+    >
+      {{buttonLabelText}}
+    </button>
+  </mat-list-item>
+  <mat-list-item>
+    <button
+      mat-button-toggle
+      mat-flat-button
+      #toggleRecordButton2
+      color="accent"
+      (click)="onToggleRecording()"
+    >
+      {{buttonLabelText}}
+    </button>
+  </mat-list-item>
+  <mat-list-item>
+    <button
+      mat-button-toggle
+      mat-flat-button
+      #toggleRecordButton3
+      color="warn"
+      (click)="onToggleRecording()"
+    >
+      {{buttonLabelText}}
+    </button></mat-list-item
+  ></mat-list>
+  </div>
+  <div class="recorded-audio">
+  <audio id="recordedAudio"></audio>
+  <div id="txtOutput">&nbsp;</div>
+  </div>
+</div>
