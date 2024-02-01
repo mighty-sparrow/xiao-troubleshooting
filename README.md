@@ -1,6 +1,6 @@
 <div
  style="text-align:center;">
-<img src="icon.png" width="100" alt="The Best Ideas Stand Out">
+<img src="icon.svg" width="100" alt="The Best Ideas Stand Out">
 </div>
 
 # Overview
