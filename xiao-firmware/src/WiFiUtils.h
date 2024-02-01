@@ -218,30 +218,6 @@ void helloWorldRequest() {
 }
 
 /**
- * @brief Another, Previous Attempt
- * I found this on some other discussion board (...I forget where).
- * It's the result of me just trying to isolate the problem and
- * separate out the file writing elements. I left it here in case
- * anyone else wants to take a crack at it.
- *
- * @param client
- * @param file
- */
-void writeFileToHttp(HttpClient* client, File* file) {
-    Serial.println("\twriteFileToHttp(...)\n");
-    char* pBuffer;  // Declare a pointer to your buffer.
-    if (file) {
-        unsigned int fileSize = file->size();   // Get the file size.
-        pBuffer = (char*)malloc(fileSize + 1);  // Allocate memory for the file and a terminating null char.
-        file->readBytes(pBuffer, fileSize);     // Read the file into the buffer.
-        pBuffer[fileSize] = '\0';               // Add the terminating null char.
-        client->println(pBuffer);               // Print the file to the serial monitor.
-        file->close();                          // Close the file.
-    }
-    free(pBuffer);
-}
-
-/**
  * @brief Upload File
  * This is the process by which the recorded audio is uploaded to
  * a REST API.
@@ -276,7 +252,22 @@ void uploadFile(const char& fName) {
         client.println();
         client.beginBody();
 
-        writeFileToHttp(&client, &file);
+        /**
+         * @brief Latest Failure...
+         * I snagged this from yet another post online,
+         * just grasping at straws now.
+         */
+        if (file) {
+            Serial.println("Writing file bits...");
+            // char* fileBuffer = new char[fLen + 1];
+            String s(file.readString());
+            // close the file:
+            file.close();
+            // s.toCharArray(fileBuffer, fLen);
+            // fileBuffer[fLen] = '\0';  // Add the terminating null char.
+            client.println(s);
+            // free(fileBuffer);
+        }
 
         Serial.println("========> Ending Request\n");
         client.println(tail);
