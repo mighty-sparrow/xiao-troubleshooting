@@ -118,7 +118,7 @@ void record_wav() {
     file.close();
 
 #ifndef NO_WIFI
-    uploadFile(*WAV_FILE_NAME);
+    uploadFile();
 #endif
     Serial.printf("The recording is over.\n");
 }

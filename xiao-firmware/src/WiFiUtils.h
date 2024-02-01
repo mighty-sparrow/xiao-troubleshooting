@@ -52,9 +52,8 @@ char ssid[] = SECRET_SSID;  // your network SSID (name)
 char pass[] = SECRET_PASS;  // your network password (use for WPA, or use as key for WEP)
 
 int status = WL_IDLE_STATUS;
-IPAddress server(ipaddr_addr(API_HOST));
 WiFiClient wifi;
-HttpClient client = HttpClient(wifi, server, API_PORT);
+HttpClient client = HttpClient(wifi, ipaddr_addr(API_HOST), API_PORT);
 
 /**
  * @brief Generic Session ID
@@ -227,68 +226,64 @@ void helloWorldRequest() {
  *
  * @param fName The name of the file to upload.
  */
-void uploadFile(const char& fName) {
+
+void uploadFile() {
     try {
         if (sessionId == 0) sessionId = millis();
+        Serial.print("Spewing chunks now, Session ID: ");
+        Serial.println(sessionId);
 
         char head[128];
-        sprintf(head, "--%s\r\nContent-Disposition: form-data; name=\"file\"; filename=\"%s\"\r\n\r\n", AUDIO_FILE_BOUNDARY, fName);
+        sprintf(head, "--%s\r\nContent-Disposition: form-data; name=\"file\"; filename=\"%s\"\r\nContent-Type: audio/wav\r\n\r\n", AUDIO_FILE_BOUNDARY, WAV_FILE_NAME);
 
         char tail[64];
         sprintf(tail, "\r\n--%s--\r\n", AUDIO_FILE_BOUNDARY);
 
-        Serial.println("\n========> Begin Request\n");
+        Serial.println("\t==> Begin Request.");
 
         client.beginRequest();
         client.post(API_ENDPOINT_MFILE);
-        client.connectionKeepAlive();
         client.sendHeader("Connection", "keep-alive");
         client.sendHeader("Accept", "*/*");
+        client.sendHeader("Audio-Source", "streaming-from-device");
         client.sendHeader("SessionID", sessionId);
+        // Using the device MAC address as its unique identifier.
+        String s(ESP.getEfuseMac());
+        client.sendHeader("Device-ID", s);
 
-        char path[sizeof(fName) + 1];
-        sprintf(path, "/%s", fName);
-        File file = SD.open(path, FILE_READ);
+        File file = SD.open("/" WAV_FILE_NAME, FILE_READ);
         const size_t fLen = file.size();
 
         client.sendHeader("Content-Length", String(fLen));
+
+        // char ct[64];
+        // sprintf(ct, "multipart/form-data; boundary=%s", AUDIO_FILE_BOUNDARY);
         client.sendHeader("Content-Type", "multipart/form-data; boundary=" AUDIO_FILE_BOUNDARY);
-        client.println(head);
-        client.beginBody();
 
-        /**
-         * @brief Echos of Previous Failure...
-         * This was a copy of something similar to what I
-         * tried initially. I'm not sure how everyone could
-         * post a snippet and say "works for me"...when it
-         * definitely doesn't.
-         */
-        char* pBuffer;  // Declare a pointer to your buffer.
-        // File myFile = SD.open(F("fileName.txt"));  // Open file for reading.
-        if (file) {
-            // unsigned int fileSize = file.size();    // Get the file size.
-            pBuffer = new char[fLen + 1];
-            Serial.printf("File Len:  %d\n", fLen);
-            if (file.available()) {
-                file.readBytes(pBuffer, fLen);
-                // fileBuffer[file.position() - 1] = file.read();
-            }
-            try {
-                // _client.write((uint8_t*)fileBuffer, fLen);
-                client.println(pBuffer);
-                // delete[] fileBuffer;
-
-            } catch (...) {
-                Serial.println("\n==== ERROR ===");
-                Serial.println("Could not write the file to the stream.\n");
-            }
+        char* fileBuffer = new char[fLen + 1];
+        Serial.printf("File Len:  %d\n", fLen);
+        if (file.available()) {
+            file.readBytes(fileBuffer, fLen);
+            // fileBuffer[file.position() - 1] = file.read();
         }
-        // *** Use the buffer as needed here. ***
-        free(pBuffer);
+        file.close();
+        client.beginBody();
+        client.println(head);
+
+        try {
+            // client.write((uint8_t*)fileBuffer, fLen);
+            client.println(fileBuffer);
+            // delete[] fileBuffer;
+
+        } catch (...) {
+            Serial.println("\n==== ERROR ===");
+            Serial.println("Could not write the file to the stream.\n");
+        }
 
         client.println(tail);
+        client.flush();
         client.endRequest();
-        Serial.println("========> Ending Request\n");
+        Serial.println("\n============> DONE WRITING.\n");
         while (!client.available())
             ;
         readResponse();
