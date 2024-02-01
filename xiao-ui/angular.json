@@ -1,0 +1,161 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "yarn"
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "st-diyfi-ui": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/st-diyfi-ui",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": [
+              "src/styles.scss",
+              "src/app/components/capturing/captured-files-list.page.scss",
+              "src/app/components/capturing/capturing.page.scss",
+              "src/scss/_global.styles.scss",
+              "src/scss/_typography.scss",
+              "src/scss/_palette.colors.1.scss",
+              "src/scss/theme.1.scss",
+              "src/scss/comp/button.scss",
+              "src/scss/comp/card.scss",
+              "src/scss/comp/gridlist.scss",
+              "src/scss/comp/toolbar.scss",
+              "src/scss/comp/table.scss",
+              {
+                "input": "src/scss/theme.2.scss",
+                "bundleName": "theme2",
+                "inject": false
+              },
+              {
+                "input": "src/scss/theme.3.scss",
+                "bundleName": "theme3",
+                "inject": false
+              },
+              {
+                "input": "src/scss/theme.4.scss",
+                "bundleName": "theme4",
+                "inject": false
+              },
+              {
+                "input": "src/scss/theme.1.dark.scss",
+                "bundleName": "theme1-dark",
+                "inject": false
+              },
+              {
+                "input": "src/scss/theme.2.dark.scss",
+                "bundleName": "theme2-dark",
+                "inject": false
+              },
+              {
+                "input": "src/scss/theme.3.dark.scss",
+                "bundleName": "theme3-dark",
+                "inject": false
+              },
+              {
+                "input": "src/scss/theme.4.dark.scss",
+                "bundleName": "theme4-dark",
+                "inject": false
+              }
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "deleteOutputPath": true,
+              "aot": true,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "st-diyfi-ui:build:production"
+            },
+            "development": {
+              "browserTarget": "st-diyfi-ui:build:development",
+              "proxyConfig": "src/proxy.conf.json"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "st-diyfi-ui:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
+        }
+      }
+    }
+  }
+}

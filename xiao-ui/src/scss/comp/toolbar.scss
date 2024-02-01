@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "../palette.colors.1" as p;
+@use "../typography" as t;
+
+.toolbar {
+  .mat-icon {
+    cursor: pointer;
+  }
+  text-transform: capitalize;
+  position: fixed !important;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  // Avoids horizontal scrollbars on smaller screens.
+  overflow: hidden;
+  .spacer {
+    flex: 1 1 auto;
+  }
+}

@@ -1,0 +1,83 @@
+<mat-toolbar class="toolbar mat-h5">
+  <button
+    [matMenuTriggerFor]="mm"
+    mat-icon-button
+    class="icon"
+    aria-label="Navigation Menu"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #mm="matMenu">
+    <ng-container *ngFor="let item of routes">
+      <a
+        *ngIf="
+          item.title &&
+          !item.title.valueOf().toString().startsWith('Demo') &&
+          !item.title.valueOf().toString().startsWith('Dash')
+        "
+        mat-menu-item
+        color="primary"
+        name="{{ item.path }}"
+        href="{{ item.path }}"
+        >{{ item.title }}</a
+      >
+      <a
+        *ngIf="item.title && item.title.valueOf().toString().startsWith('Demo')"
+        mat-menu-item
+        style="border-top: solid 1px"
+        color="primary"
+        name="{{ item.path }}"
+        href="{{ item.path }}"
+        >{{ item.title }}</a
+      >
+      <a
+        *ngIf="item.title && item.title.valueOf().toString().startsWith('Dash')"
+        mat-menu-item
+        style="border-bottom: solid 1px"
+        color="primary"
+        name="{{ item.path }}"
+        href="{{ item.path }}"
+        >{{ item.title }}</a
+      >
+    </ng-container>
+  </mat-menu>
+
+  Administration
+  <span class="spacer"></span>
+
+  <!-- <button
+    [matMenuTriggerFor]="tm"
+    mat-icon-button
+    class="icon"
+    matTooltip="Theme switching menu."
+  >
+    <mat-icon>design_services</mat-icon>
+  </button>
+  <mat-menu #tm="matMenu" class="menu-theme-selection">
+    <span *ngFor="let tn of themeNames">
+      <a
+        mat-menu-item
+        color="primary"
+        (click)="switchTheme(tn.key)"
+        name="{{ tn.key }}"
+        id="{{ tn.key }}"
+      >
+        {{ tn.value }}
+        <mat-icon *ngIf="tn.key == themeName">chevron_right</mat-icon>
+        <div *ngIf="tn.key != themeName" class="mat-icon" style="float: left">
+          &nbsp;
+        </div>
+        <span *ngIf="tn.key == themeName" class="cdk-visually-hidden"
+          >Selected Item is {{ tn.value }}</span
+        >
+      </a>
+    </span>
+  </mat-menu> -->
+  <button
+    mat-icon-button
+    (click)="toggleDarkTheme()"
+    [matTooltip]="isDark ? 'Switch to light theme' : 'Switch to dark theme'"
+  >
+    <mat-icon>{{ isDark ? "light_mode" : "dark_mode" }}</mat-icon>
+  </button>
+</mat-toolbar>

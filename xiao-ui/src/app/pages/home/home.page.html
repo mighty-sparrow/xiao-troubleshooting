@@ -1,0 +1,47 @@
+<div class="grid-container">
+  <h1>{{title}}</h1>
+  <p *ngIf="info != undefined">Here are some details about the server:</p>
+
+  <dl *ngIf="info != undefined">
+    <div>
+      <dt>Architecture</dt>
+      <dd><code>{{info.arch}}</code></dd>
+    </div>
+    <div>
+      <dt>Host Name</dt>
+      <dd><code>{{info.hostname}}</code></dd>
+    </div>
+    <div>
+      <dt>Machine</dt>
+      <dd><code>{{info.machine}}</code></dd>
+    </div>
+    <div>
+      <dt>Platform</dt>
+      <dd><code>{{info.platform}}</code></dd>
+    </div>
+    <div>
+      <dt>Version</dt>
+      <dd><code>{{info.version}}</code></dd>
+    </div>
+    <div>
+      <dt>GID</dt>
+      <dd><code>{{info.userinfo.gid}}</code></dd>
+    </div>
+    <div>
+      <dt>Home Directory</dt>
+      <dd><code>{{info.userinfo.homedir}}</code></dd>
+    </div>
+    <div>
+      <dt>Shell</dt>
+      <dd><code>{{info.userinfo.shell}}</code></dd>
+    </div>
+    <div>
+      <dt>UID</dt>
+      <dd><code>{{info.userinfo.uid}}</code></dd>
+    </div>
+    <div>
+      <dt>User Name</dt>
+      <dd><code>{{info.userinfo.username}}</code></dd>
+    </div>
+  </dl>
+</div>

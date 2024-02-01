@@ -1,0 +1,20 @@
+@use "palette.colors.1" as pc;
+@use "helpers";
+
+.theme1-dark {
+  @include helpers.generate-variant(
+    $primary: pc.$md-mcgpalette3,
+    $accent: pc.$md-mcgpalette4,
+    $warn: pc.$md-mcgpalette2,
+    $foreground: pc.$md-mcgpalette3,
+    $background: pc.$md-mcgpalette1,
+    $is-dark: true
+  );
+}
+@include helpers.all-custom-colors(
+  pc.$md-mcgpalette0,
+  pc.$md-mcgpalette1,
+  pc.$md-mcgpalette2,
+  pc.$md-mcgpalette3,
+  pc.$md-mcgpalette4
+);

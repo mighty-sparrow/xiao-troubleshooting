@@ -1,0 +1,57 @@
+[
+  {
+    "_id": "656565a1d6710efbca7071b8",
+    "length": 50770,
+    "chunkSize": 261120,
+    "uploadDate": "2023-11-28T04:53:07.674Z",
+    "filename": "API Upload 2023-11-28T03:59:29.200Z.webm",
+    "contentType": "multipart/form-data; boundary=----WebKitFormBoundary0rixnArKIVUlICyh",
+    "metadata": {
+      "isTranscribed": false,
+      "_id": "656618ec55acb6cae1895fcb"
+    }
+  },
+  {
+    "_id": "6565725080037677aabd3aea",
+    "length": 119914,
+    "chunkSize": 261120,
+    "uploadDate": "2023-11-28T04:54:02.663Z",
+    "filename": "API Upload 2023-11-28T04:53:36.928Z.webm",
+    "contentType": "multipart/form-data; boundary=----WebKitFormBoundarykd4lyAhfjkuBCBto",
+    "metadata": {
+      "myCustomField": "Lorem ipsum dolor sit amet.",
+      "isTranscribed": false,
+      "_id": "656618ec55acb6cae1895fcc"
+    }
+  },
+  {
+    "_id": "6565829e2f8b7300eaaa13ba",
+    "length": 165061,
+    "chunkSize": 261120,
+    "uploadDate": "2023-11-28T06:03:26.322Z",
+    "filename": "API Upload 2023-11-28T06:03:10.945Z.webm",
+    "contentType": "multipart/form-data; boundary=----WebKitFormBoundarylw7P5kFVLAtX5RlA",
+    "metadata": {
+      "header": "",
+      "isTranscribed": false,
+      "transcriptionId": 0,
+      "modifiedDate": "2023-11-28T06:03:14.789Z",
+      "_id": "656618ec55acb6cae1895fcd"
+    }
+  },
+  {
+    "_id": "656583442f8b7300eaaa13bc",
+    "length": 201151,
+    "chunkSize": 261120,
+    "uploadDate": "2023-11-28T06:06:02.922Z",
+    "filename": "API Upload 2023-11-28T06:05:56.282Z.webm",
+    "contentType": "multipart/form-data; boundary=----WebKitFormBoundaryeyziD2fc8NJ4xAlZ",
+    "metadata": {
+      "header": "",
+      "isTranscribed": false,
+      "transcriptionId": 0,
+      "modifiedDate": "2023-11-28T06:06:02.917Z",
+      "_id": "656618ec55acb6cae1895fce"
+    }
+  }
+]

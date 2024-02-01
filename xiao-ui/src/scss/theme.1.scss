@@ -1,0 +1,53 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@use "palette.colors.1" as pc;
+@use "typography" as t;
+// @import "@angular/material/core/theming/_palette.scss";
+@use "helpers";
+
+$custom-primary: mat.define-palette(pc.$md-mcgpalette0, 400, 500, 700);
+$custom-accent: mat.define-palette(pc.$md-mcgpalette1, 200, 400, A700);
+$custom-warn: mat.define-palette(pc.$md-mcgpalette2, 700);
+
+// Create classes for all density scales which are supported by all MDC-based components.
+// The classes are applied conditionally based on the selected density in the dev-app layout
+// component.
+$density-scales: (-1, -2, -3, minimum, maximum);
+
+@each $density in $density-scales {
+  .density-#{$density} {
+    @include mat.all-component-densities($density);
+  }
+}
+
+@include helpers.all-custom-colors(
+  pc.$md-mcgpalette0,
+  pc.$md-mcgpalette1,
+  pc.$md-mcgpalette2,
+  pc.$md-mcgpalette3,
+  pc.$md-mcgpalette4
+);
+$light-theme: helpers.create-custom-theme(
+  $custom-primary,
+  $custom-accent,
+  $custom-warn,
+  mat.$light-theme-foreground-palette,
+  mat.$light-theme-background-palette,
+  t.$typography,
+  $is-dark: false
+);
+$custom-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $custom-primary,
+      accent: $custom-accent,
+      warn: $custom-warn,
+    ),
+    typography: t.$typography,
+    density: 0,
+  )
+);
+
+$custom-theme: map.deep-merge($custom-theme, $light-theme);
+@include mat.core-theme($custom-theme);

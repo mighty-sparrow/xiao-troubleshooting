@@ -1,0 +1,244 @@
+@use "sass:map";
+@use "sass:math";
+@use "@angular/material" as mat;
+@use "palette.common";
+@use "typography" as t;
+
+@function create-custom-theme(
+  $primary,
+  $accent,
+  $warn: mat.define-palette($mat-red),
+  $foreground,
+  $background,
+  $typo,
+  $is-dark
+) {
+  @return (
+    color: (
+      primary: $primary,
+      accent: $accent,
+      warn: $warn,
+      is-dark: $is-dark,
+      foreground: $foreground,
+      background: $background,
+    ),
+    typography: $typo,
+    density: 0
+  );
+}
+@function _get-dark-light-fgbg(
+  $is-dark: false,
+  $is-fg: true,
+  $color-palette,
+  $val
+) {
+  $ret: map.get($color-palette, A700);
+  @if $is-dark {
+    @if $is-fg {
+      $ret: map.get($color-palette, map.get($val, light));
+    } @else {
+      $ret: map.get($color-palette, map.get($val, dark));
+    }
+  } @else {
+    @if $is-fg {
+      $ret: map.get($color-palette, map.get($val, dark));
+    } @else {
+      $ret: map.get($color-palette, map.get($val, light));
+    }
+  }
+  @return ($ret);
+}
+@mixin generate-variant(
+  $primary,
+  $accent,
+  $warn: mat.define-palette($mat-red),
+  $foreground,
+  $background,
+  $typo: t.$typography,
+  $is-dark
+) {
+  $custom-primary-dark: mat.define-palette($primary, 400, 500, 700);
+  $custom-accent-dark: mat.define-palette($accent, 400, 500, 700);
+  $custom-warn-dark: mat.define-palette($warn, 700);
+
+  $foreground-palette: (
+    divider: map.get($accent, 50),
+    dividers: map.get($accent, 50),
+    text:
+      _get-dark-light-fgbg(
+        $is-dark: $is-dark,
+        $is-fg: true,
+        $color-palette: $foreground,
+        $val: (
+          light: 50,
+          dark: 900,
+        ),
+      ),
+    // text: map.get($foreground, 900),
+  );
+  $background-palette: (
+    app-bar:
+      _get-dark-light-fgbg(
+        $is-dark: $is-dark,
+        $is-fg: false,
+        $color-palette: $background,
+        $val: (
+          light: 200,
+          dark: 900,
+        ),
+      ),
+    //map.get($background, 900),
+    background:
+      _get-dark-light-fgbg(
+        $is-dark: $is-dark,
+        $is-fg: false,
+        $color-palette: $background,
+        $val: (
+          light: 50,
+          dark: 800,
+        ),
+      ),
+    // background: map.get($background, 800),
+    hover:
+      _get-dark-light-fgbg(
+        $is-dark: $is-dark,
+        $is-fg: false,
+        $color-palette: $background,
+        $val: (
+          light: 600,
+          dark: 200,
+        ),
+      ),
+    // map.get($background, 600),
+    card:
+      _get-dark-light-fgbg(
+        $is-dark: $is-dark,
+        $is-fg: false,
+        $color-palette: $background,
+        $val: (
+          light: 100,
+          dark: 900,
+        ),
+      ),
+    //map.get($background, 900),
+    dialog:
+      _get-dark-light-fgbg(
+        $is-dark: $is-dark,
+        $is-fg: false,
+        $color-palette: $accent,
+        $val: (
+          light: 50,
+          dark: 800,
+        ),
+      ),
+    // map.get($accent, 800),
+    disabled-button:
+      _get-dark-light-fgbg(
+        $is-dark: $is-dark,
+        $is-fg: false,
+        $color-palette: $warn,
+        $val: (
+          light: 200,
+          dark: 900,
+        ),
+      ),
+    //map.get($warn, A50),
+    raised-button: map.get($warn, 800),
+    focused-button: map.get($primary, 800),
+    selected-button: map.get($primary, 900),
+    selected-disabled-button: map.get($primary, 800),
+    disabled-button-toggle: black,
+    unselected-chip: map.get($primary, 700),
+    disabled-list-option: black,
+    tooltip: map.get($background, 700),
+  );
+  $theme: create-custom-theme(
+    $custom-primary-dark,
+    $custom-accent-dark,
+    $custom-warn-dark,
+    $foreground-palette,
+    $background-palette,
+    $typo,
+    $is-dark
+  );
+  @include mat.all-component-colors($theme);
+}
+
+@mixin all-custom-colors($custom1, $custom2, $custom3, $custom4, $custom5) {
+  .mat-custom1,
+  .mat-custom2,
+  .mat-custom3,
+  .mat-custom4,
+  .mat-custom5,
+  .mat-custom1a,
+  .mat-custom2a,
+  .mat-custom3a,
+  .mat-custom4a,
+  .mat-custom5a {
+    .mdc-button__label {
+      min-width: 80px;
+    }
+  }
+
+  .mat-custom1 {
+    .mdc-button__label {
+      color: map.get($custom5, 500);
+    }
+    background-color: map.get($custom1, 500) !important;
+  }
+  .mat-custom2 {
+    .mdc-button__label {
+      color: map.get($custom5, 500);
+    }
+    background-color: map.get($custom2, 500) !important;
+  }
+  .mat-custom3 {
+    .mdc-button__label {
+      color: map.get($custom1, 500);
+    }
+    background-color: map.get($custom3, 500) !important;
+  }
+  .mat-custom4 {
+    .mdc-button__label {
+      color: map.get($custom1, 500);
+    }
+    background-color: map.get($custom4, 500) !important;
+  }
+  .mat-custom5 {
+    .mdc-button__label {
+      color: map.get($custom1, 500);
+    }
+    background-color: map.get($custom5, 500) !important;
+  }
+
+  .mat-custom1a {
+    .mdc-button__label {
+      color: map.get($custom1, 500);
+    }
+    background-color: map.get($custom1, A700) !important;
+  }
+  .mat-custom2a {
+    .mdc-button__label {
+      color: map.get($custom1, 500);
+    }
+    background-color: map.get($custom1, A200) !important;
+  }
+  .mat-custom3a {
+    .mdc-button__label {
+      color: map.get($custom1, 500);
+    }
+    background-color: map.get($custom3, A400) !important;
+  }
+  .mat-custom4a {
+    .mdc-button__label {
+      color: map.get($custom1, 500);
+    }
+    background-color: map.get($custom4, A400) !important;
+  }
+  .mat-custom5a {
+    .mdc-button__label {
+      color: map.get($custom1, 500);
+    }
+    background-color: map.get($custom5, A400) !important;
+  }
+}
