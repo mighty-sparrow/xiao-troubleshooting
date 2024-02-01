@@ -238,6 +238,7 @@ void uploadFile(const char& fName) {
 
         client.beginRequest();
         client.post(API_ENDPOINT_MFILE);
+        client.connectionKeepAlive();
         client.sendHeader("Connection", "keep-alive");
         client.sendHeader("Accept", "*/*");
         client.sendHeader("SessionID", sessionId);
@@ -249,27 +250,33 @@ void uploadFile(const char& fName) {
 
         client.sendHeader("Content-Length", String(fLen));
         client.sendHeader("Content-Type", "multipart/form-data; boundary=" AUDIO_FILE_BOUNDARY);
-        client.println();
+        client.println(head);
         client.beginBody();
 
         /**
-         * @brief Latest Failure...
-         * I snagged this from yet another post online,
-         * just grasping at straws now.
+         * @brief Echos of Previous Failure...
+         * This was a copy of something similar to what I
+         * tried initially. I'm not sure how everyone could
+         * post a snippet and say "works for me"...when it
+         * definitely doesn't.
          */
+        char* pBuffer;  // Declare a pointer to your buffer.
+        // File myFile = SD.open(F("fileName.txt"));  // Open file for reading.
         if (file) {
-            Serial.println("Writing file bits...");
-            char* fileBuffer = new char[fLen + 1];
-            sprintf(fileBuffer, "%s", file.readString().c_str());
-            fileBuffer[fLen] = '\0';  // Add the terminating null char.
-            // close the file:
-            file.close();
-            client.write((const uint8_t*)fileBuffer, fLen);
-            client.println();
-            // s.toCharArray(fileBuffer, fLen);
-            // client.println(s);
-            // free(fileBuffer);
+            // unsigned int fileSize = file.size();    // Get the file size.
+            pBuffer = new char[fLen + 1];
+            Serial.printf("File Len:  %d\n", fLen);
+            // pBuffer = (char*)malloc(fLen + 1);                 // Allocate memory for the file and a terminating null char.
+            file.readBytes(pBuffer, fLen);  // Read the file into the buffer.
+            file.flush();
+            pBuffer[fLen] = '\0';  // Add the terminating null char.
+            // client.write((const uint8_t*)pBuffer, fLen + 1);  // Print the file to the serial monitor.
+            client.print(pBuffer);
+            file.close();  // Close the file.
         }
+        // *** Use the buffer as needed here. ***
+        free(pBuffer);
+
         Serial.println("========> Ending Request\n");
         client.println(tail);
         client.endRequest();
