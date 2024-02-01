@@ -259,16 +259,17 @@ void uploadFile(const char& fName) {
          */
         if (file) {
             Serial.println("Writing file bits...");
-            // char* fileBuffer = new char[fLen + 1];
-            String s(file.readString());
+            char* fileBuffer = new char[fLen + 1];
+            sprintf(fileBuffer, "%s", file.readString().c_str());
+            fileBuffer[fLen] = '\0';  // Add the terminating null char.
             // close the file:
             file.close();
+            client.write((const uint8_t*)fileBuffer, fLen);
+            client.println();
             // s.toCharArray(fileBuffer, fLen);
-            // fileBuffer[fLen] = '\0';  // Add the terminating null char.
-            client.println(s);
+            // client.println(s);
             // free(fileBuffer);
         }
-
         Serial.println("========> Ending Request\n");
         client.println(tail);
         client.endRequest();
