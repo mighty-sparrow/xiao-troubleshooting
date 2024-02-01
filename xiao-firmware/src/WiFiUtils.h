@@ -7,8 +7,11 @@
 
 #include "config/WiFiConfig.h"
 
-#define API_HOST "0.0.0.0"  // Change this to the IP address where the NestJS API is running.
-#define API_PORT 3000       // This is the port where the NestJS API is running.
+#ifndef API_HOST
+#pragma error "API_HOST is not defined. Please add it to the `build_flags` in platformio.ini or include it here.";
+// #define API_HOST "0.0.0.0"  // Change this to the IP address where the NestJS API is running.
+#endif
+#define API_PORT 3000  // This is the port where the NestJS API is running.
 
 /**
  * @brief This is the short name of the file where audio data is persisted.
@@ -266,20 +269,26 @@ void uploadFile(const char& fName) {
             // unsigned int fileSize = file.size();    // Get the file size.
             pBuffer = new char[fLen + 1];
             Serial.printf("File Len:  %d\n", fLen);
-            // pBuffer = (char*)malloc(fLen + 1);                 // Allocate memory for the file and a terminating null char.
-            file.readBytes(pBuffer, fLen);  // Read the file into the buffer.
-            file.flush();
-            pBuffer[fLen] = '\0';  // Add the terminating null char.
-            // client.write((const uint8_t*)pBuffer, fLen + 1);  // Print the file to the serial monitor.
-            client.print(pBuffer);
-            file.close();  // Close the file.
+            if (file.available()) {
+                file.readBytes(pBuffer, fLen);
+                // fileBuffer[file.position() - 1] = file.read();
+            }
+            try {
+                // _client.write((uint8_t*)fileBuffer, fLen);
+                client.println(pBuffer);
+                // delete[] fileBuffer;
+
+            } catch (...) {
+                Serial.println("\n==== ERROR ===");
+                Serial.println("Could not write the file to the stream.\n");
+            }
         }
         // *** Use the buffer as needed here. ***
         free(pBuffer);
 
-        Serial.println("========> Ending Request\n");
         client.println(tail);
         client.endRequest();
+        Serial.println("========> Ending Request\n");
         while (!client.available())
             ;
         readResponse();
