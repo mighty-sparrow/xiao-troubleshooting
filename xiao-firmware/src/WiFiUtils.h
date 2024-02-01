@@ -247,6 +247,7 @@ void uploadFile() {
         client.sendHeader("Accept", "*/*");
         client.sendHeader("Audio-Source", "streaming-from-device");
         client.sendHeader("SessionID", sessionId);
+
         // Using the device MAC address as its unique identifier.
         String s(ESP.getEfuseMac());
         client.sendHeader("Device-ID", s);
@@ -255,13 +256,10 @@ void uploadFile() {
         const size_t fLen = file.size();
 
         client.sendHeader("Content-Length", String(fLen));
-
-        // char ct[64];
-        // sprintf(ct, "multipart/form-data; boundary=%s", AUDIO_FILE_BOUNDARY);
         client.sendHeader("Content-Type", "multipart/form-data; boundary=" AUDIO_FILE_BOUNDARY);
 
         char* fileBuffer = new char[fLen + 1];
-        Serial.printf("File Len:  %d\n", fLen);
+        Serial.printf("\t==> File Len:  %d\n", fLen);
         if (file.available()) {
             file.readBytes(fileBuffer, fLen);
             // fileBuffer[file.position() - 1] = file.read();
@@ -271,9 +269,10 @@ void uploadFile() {
         client.println(head);
 
         try {
-            // client.write((uint8_t*)fileBuffer, fLen);
-            client.println(fileBuffer);
+            client.write((uint8_t*)fileBuffer, fLen);
+            // client.println(fileBuffer);
             // delete[] fileBuffer;
+            client.flush();
 
         } catch (...) {
             Serial.println("\n==== ERROR ===");
