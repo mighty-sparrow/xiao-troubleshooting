@@ -261,17 +261,17 @@ void uploadFile() {
         char* fileBuffer = new char[fLen + 1];
         Serial.printf("\t==> File Len:  %d\n", fLen);
         if (file.available()) {
-            file.readBytes(fileBuffer, fLen);
-            // fileBuffer[file.position() - 1] = file.read();
+            file.readBytesUntil('\0', fileBuffer, fLen);
+            fileBuffer[fLen + 1] = '\0';
         }
         file.close();
         client.beginBody();
         client.println(head);
 
         try {
-            client.write((uint8_t*)fileBuffer, fLen);
-            // client.println(fileBuffer);
-            // delete[] fileBuffer;
+            if (fileBuffer != NULL && *fileBuffer != '\0') {
+                client.write(*fileBuffer);
+            }
             client.flush();
 
         } catch (...) {
