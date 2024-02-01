@@ -269,11 +269,18 @@ void uploadFile() {
         client.println(head);
 
         try {
-            if (fileBuffer != NULL && *fileBuffer != '\0') {
-                client.write(*fileBuffer);
+            int offSet = 0;
+            while (offSet < fLen) {
+                int chunkSize = 1024;
+                Serial.printf("\t==> offSet: %d\n", offSet);
+                if (offSet + chunkSize > fLen) {
+                    chunkSize = fLen - offSet;
+                }
+                client.write((uint8_t*)(fileBuffer + offSet), chunkSize);
+                offSet += chunkSize;
             }
-            client.flush();
 
+            client.write('\0');
         } catch (...) {
             Serial.println("\n==== ERROR ===");
             Serial.println("Could not write the file to the stream.\n");
