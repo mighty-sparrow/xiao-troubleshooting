@@ -268,6 +268,10 @@ void uploadFile() {
         client.beginBody();
         client.println(head);
 
+        /**
+         * @brief Here is the problem
+         * I even used Github Copilot to help me write this code.
+         */
         try {
             int offSet = 0;
             while (offSet < fLen) {
