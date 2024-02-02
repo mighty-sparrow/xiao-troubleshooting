@@ -9,6 +9,9 @@
 # Overview
 This firmware is intended to be deployed on the [Seeed Studio XIAO ESP32 S3 (Sense)](https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/).
 
+# Running/Testing the Code
+Be mindful that the code won't execute unless and until a Serial connection is established. That is, unless you open something like [Serial Monitor](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-serial-monitor), by Microsoft.
+
 # Configuration
 If you are a weirdo and felt compelled to change anything from the default configurations in your server environment (the `xiao-app` directory), you'll want to be mindful of that. Ensure you use the same settings here as you did there.
 
