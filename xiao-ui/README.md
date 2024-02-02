@@ -11,7 +11,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 > ## Proxy Configuration
 > Prior to building and running, you will need to update the `./src/proxy.conf.json` file.
 >
-> Get your local IP address (or wherever the `xiao-firmware` app is running) and update the file with it. For example, replace `[YOUR IP ADDRESS HERE]` with your IP Address:
+> Get your local IP address (or wherever the [`xiao-app`](../xiao-app/README.md)  app is running) and update the file with it. For example, replace `[YOUR IP ADDRESS HERE]` with your IP Address:
 >  ```json
 >  {
 >   "/api/*": {
