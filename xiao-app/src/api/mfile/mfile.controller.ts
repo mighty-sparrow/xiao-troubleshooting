@@ -68,6 +68,16 @@ export class MFileController {
     },
   })
   @ApiConsumes('multipart/form-data')
+  @ApiOkResponse({
+    schema: {
+      properties: {
+        id: {
+          type: 'string',
+          example: '5e2b4cb75876c93e38b6e6aa',
+        },
+      },
+    },
+  })
   @ApiCreatedResponse({
     schema: {
       properties: {

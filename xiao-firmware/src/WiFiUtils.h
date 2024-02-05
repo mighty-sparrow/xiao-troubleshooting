@@ -47,6 +47,15 @@
 #define API_ENDPOINT_MFILE "/mfile"
 #endif
 
+#ifndef CHUNK_SIZE
+/**
+ * @brief Chunk Size
+ * This is the size of a "CHUNK" of data that is sent
+ * over the network. It's used to break up the audio
+ * file into smaller pieces.
+ */
+#define CHUNK_SIZE 2048
+#endif
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
 char ssid[] = SECRET_SSID;  // your network SSID (name)
 char pass[] = SECRET_PASS;  // your network password (use for WPA, or use as key for WEP)
@@ -129,7 +138,9 @@ bool _printConnectionStatus() {
     Serial.print("\t");
     switch (status) {
         case WL_IDLE_STATUS:
+#ifdef VERBOSE
             Serial.println("...idling, please hold.");
+#endif
             break;
         case WL_NO_SSID_AVAIL:
             Serial.println("Cannot find the SSID.");
@@ -168,7 +179,9 @@ void setWiFiTime() {
     delay(2000);
     tmstruct.tm_year = 0;
     getLocalTime(&tmstruct, 5000);
-    Serial.printf("\nNow is : %d-%02d-%02d %02d:%02d:%02d\n", (tmstruct.tm_year) + 1900, (tmstruct.tm_mon) + 1, tmstruct.tm_mday, tmstruct.tm_hour, tmstruct.tm_min, tmstruct.tm_sec);
+#ifdef VERBOSE
+    Serial.printf("Now is : %d-%02d-%02d %02d:%02d:%02d\n\n", (tmstruct.tm_year) + 1900, (tmstruct.tm_mon) + 1, tmstruct.tm_mday, tmstruct.tm_hour, tmstruct.tm_min, tmstruct.tm_sec);
+#endif
 }
 
 /**
@@ -262,7 +275,7 @@ void uploadFile() {
         Serial.printf("\t==> File Len:  %d\n", fLen);
         if (file.available()) {
             file.readBytesUntil('\0', fileBuffer, fLen);
-            fileBuffer[fLen + 1] = '\0';
+            // fileBuffer[fLen + 1] = '\0';
         }
         file.close();
         client.beginBody();
@@ -274,26 +287,37 @@ void uploadFile() {
          */
         try {
             int offSet = 0;
+            int chunkSize = CHUNK_SIZE;
             while (offSet < fLen) {
-                int chunkSize = 1024;
+#if defined(DEBUG) && defined(VERBOSE)
                 Serial.printf("\t==> offSet: %d\n", offSet);
+#endif
+
+                // if (offSet == 0) {
+                //     Serial.print("\t==> Writing the first chunk: ");
+                //     Serial.println(fileBuffer);
+                //     client.print(fileBuffer);
+                //     // } else {
+                //     //     client.print(fileBuffer + offSet);
+                // }
                 if (offSet + chunkSize > fLen) {
                     chunkSize = fLen - offSet;
                 }
-                client.write((uint8_t*)(fileBuffer + offSet), chunkSize);
+                uint8_t* chunk = reinterpret_cast<uint8_t*>(&fileBuffer[offSet]);  // Change data type from char* to uint8_t*
+                client.write(chunk, chunkSize);                                    // Remove the unnecessary cast
                 offSet += chunkSize;
             }
-
-            client.write('\0');
         } catch (...) {
             Serial.println("\n==== ERROR ===");
             Serial.println("Could not write the file to the stream.\n");
         }
-
+        client.write('\r\n');
         client.println(tail);
         client.flush();
         client.endRequest();
+#ifdef DEBUG
         Serial.println("\n============> DONE WRITING.\n");
+#endif
         while (!client.available())
             ;
         readResponse();
@@ -316,6 +340,7 @@ void WiFiSetup() {
 
     WiFi.begin(ssid, pass);
     while (WiFi.status() != WL_CONNECTED) {
+#ifdef VERBOSE
         Serial.println();
         Serial.print("Attempting to connect with SSID and Password: ");
         Serial.print(ssid);
@@ -323,13 +348,19 @@ void WiFiSetup() {
         Serial.println(pass);
         if (_printConnectionStatus()) {
             Serial.println("Continuing from here.");
-        } else {
+        } else
+#else
+        {
             // wait 1/2 second before retrying...
+            Serial.print(".");
             delay(500);
-        }
+#endif
     }
-    Serial.println();
-    Serial.println("=========== Connected to wifi ===========");
-    setWiFiTime();
-    printWifiStatus();
+}
+Serial.println();
+Serial.println("=========== Connected to wifi ===========");
+setWiFiTime();
+#ifdef VERBOSE
+printWifiStatus();
+#endif
 }
